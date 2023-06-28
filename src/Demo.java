@@ -981,16 +981,19 @@ public class Demo {
     }
 
     public final static void clearWorkingConsole() {
+        final String os = System.getProperty("os.name");
         try {
-            final String opSystem = System.getProperty("opSystem.name");
-            if (opSystem.contains("Windows")) {
+            if (os.equals("Linux")) {
+                System.out.print("\033\143");
+            } else if (os.equals("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
             }
         } catch (final Exception e) {
-            e.printStackTrace();
+//handle the exception
+            System.err.println(e.getMessage());
         }
     }
 }
